@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ДомЭксперт | ИИ-помощник по покупке домов</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fefaf5 0%, #f8f4ed 100%);
+            color: #1e2a32;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2b5f3b, #1f8a4c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .logo:hover { opacity: 0.8; }
+        .logo span { color: #c97e2c; background: none; }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+            font-weight: 500;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e2f;
+            transition: 0.2s;
+        }
+        .nav-links a:hover { color: #1f8a4c; }
+
+        .btn-outline {
+            border: 2px solid #1f8a4c;
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #1f8a4c;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-outline:hover { background: #1f8a4c; color: white; }
+
+        .btn-primary {
+            background: #1f8a4c;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 6px 14px rgba(31,138,76,0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary:hover { background: #146b3b; transform: translateY(-2px); }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #1f8a4c;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #1f8a4c;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-secondary:hover { background: #1f8a4c; color: white; }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 40px 0 60px;
+        }
+        .hero-content { flex: 1; min-width: 280px; }
+        .hero-badge {
+            background: #e9f3ec;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f8a4c;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero-highlight { color: #1f8a4c; border-bottom: 3px solid #f2b84e; }
+        .hero-description {
+            font-size: 1.1rem;
+            color: #4a5b5e;
+            margin-bottom: 32px;
+            max-width: 500px;
+        }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+        .hero-image-card {
+            flex: 1;
+            min-width: 280px;
+            background: linear-gradient(135deg, #d4e0d0, #c2d4bb);
+            border-radius: 32px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 48px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            padding: 32px 28px;
+            margin: 40px 0 60px;
+            border: 1px solid #ece4d7;
+        }
+        .filter-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .filter-item { flex: 1; min-width: 160px; }
+        .filter-item label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 8px;
+            color: #3f5445;
+        }
+        .filter-item select, .filter-item input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 48px;
+            border: 1px solid #ddd3c4;
+            background: #fefaf5;
+            font-family: inherit;
+            outline: none;
+        }
+        
+        .stats-badge {
+            background: #1f8a4c10;
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 40px 0 20px;
+        }
+        .houses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        .house-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f0e9df;
+            cursor: pointer;
+        }
+        .house-card:hover { transform: translateY(-8px); box-shadow: 0 28px 40px -12px rgba(0,0,0,0.2); }
+        .card-svg {
+            height: 220px;
+            background: linear-gradient(135deg, #f5f0e6, #e8e0d3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .badge-hot {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: #e86f2c;
+            color: white;
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-new {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #1f8a4c;
+            color: white;
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .card-content { padding: 22px; }
+        .price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1f8a4c;
+        }
+        .address { font-weight: 500; margin: 8px 0; }
+        .details { display: flex; gap: 20px; margin: 12px 0; color: #5b6e64; }
+        .card-footer {
+            border-top: 1px solid #efe5d9;
+            margin-top: 12px;
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .agent {
+            font-size: 0.8rem;
+            background: #f7f2ea;
+            padding: 5px 10px;
+            border-radius: 40px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #cddfd4;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #1f8a4c;
+        }
+
+        /* Чат-бот стили */
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1f8a4c, #146b3b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+        .chatbot-button:hover { transform: scale(1.05); }
+        .chatbot-button i { font-size: 32px; color: white; }
+        
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 550px;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1001;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #1f8a4c, #146b3b);
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h3 { font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        .chat-header i { font-size: 24px; }
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f4ed;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .message {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .bot-message {
+            background: white;
+            color: #1e2a32;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .user-message {
+            background: #1f8a4c;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-input-area {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            font-family: inherit;
+        }
+        .chat-input-area button {
+            background: #1f8a4c;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .typing-indicator {
+            background: white;
+            padding: 8px 14px;
+            border-radius: 18px;
+            align-self: flex-start;
+            font-size: 0.8rem;
+            color: #6b5a42;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            background: #f5f1ea;
+            border-radius: 48px;
+            padding: 56px 40px;
+            margin: 50px 0;
+        }
+        .feature { flex: 1; text-align: center; }
+        .feature i { font-size: 2.5rem; color: #1f8a4c; margin-bottom: 16px; }
+        footer {
+            background: #1e2a26;
+            color: #cddfd4;
+            padding: 40px 0 20px;
+            margin-top: 70px;
+            text-align: center;
+            border-radius: 32px 32px 0 0;
+        }
+        @media (max-width: 780px) {
+            .chat-window { width: 320px; right: 15px; bottom: 85px; height: 500px; }
+            .chatbot-button { width: 60px; height: 60px; bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar">
+        <a href="/" class="logo">🏡 Дом<span>Эксперт</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Главная</a></li>
+            <li><a href="#catalog">Каталог</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <a href="tel:+74959998877" class="btn-outline" id="supportBtn">🎧 Поддержка</a>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🤖 ИИ-помощник 24/7</div>
+            <h1>Найди идеальный <span class="hero-highlight">дом</span><br> с помощью AI</h1>
+            <p class="hero-description">Нажмите на иконку чата справа — искусственный интеллект поможет подобрать дом, ответит на вопросы об ипотеке и запишет на просмотр.</p>
+            <div class="hero-buttons">
+                <a href="#catalog" class="btn-primary" id="heroCatalogBtn">Смотреть дома →</a>
+                <button class="btn-secondary" id="openChatBtn">💬 Спросить ИИ</button>
+            </div>
+        </div>
+        <div class="hero-image-card">
+            <svg width="300" height="220" viewBox="0 0 300 220" fill="none">
+                <rect width="300" height="220" rx="20" fill="#E8F0E5"/>
+                <path d="M60 130 L150 50 L240 130 L210 130 L210 190 L90 190 L90 130 L60 130Z" fill="#C2B280"/>
+                <circle cx="150" cy="110" r="20" fill="#F4E3B2"/>
+                <text x="110" y="210" fill="#2C5E2E" font-size="14">🤖 AI-консультант</text>
+            </svg>
+        </div>
+    </div>
+
+    <div class="search-section">
+        <div class="filter-grid">
+            <div class="filter-item"><label>Локация</label><input type="text" id="locationFilter" placeholder="Город, район" value="Москва"></div>
+            <div class="filter-item"><label>Цена (до млн ₽)</label><select id="priceFilter"><option value="any">Любая</option><option value="15">до 15 млн</option><option value="30">до 30 млн</option><option value="60">до 60 млн</option><option value="100">до 100 млн</option><option value="150">до 150 млн</option></select></div>
+            <div class="filter-item"><label>Комнат</label><select id="roomsFilter"><option value="any">Любые</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option><option value="5">5+</option></select></div>
+            <div class="filter-item"><button class="btn-primary" id="applyFilterBtn">Найти</button></div>
+        </div>
+    </div>
+
+    <div id="catalog">
+        <h2 class="section-title">🏘️ Каталог домов <span class="stats-badge" id="houseCount">30+ объектов</span></h2>
+        <div class="houses-grid" id="housesContainer"></div>
+    </div>
+
+    <div class="features">
+        <div class="feature"><i class="fas fa-robot"></i><h4>AI-консультант</h4><p>Отвечает 24/7 на любые вопросы</p></div>
+        <div class="feature"><i class="fas fa-hand-holding-usd"></i><h4>Безопасные сделки</h4><p>Юридическая проверка</p></div>
+        <div class="feature"><i class="fas fa-percent"></i><h4>Ипотека от 4.5%</h4><p>Помощь в одобрении</p></div>
+    </div>
+
+    <div id="about" style="margin: 40px 0;">
+        <h2 class="section-title">О компании</h2>
+        <p style="font-size:1.05rem;">1500+ семей уже нашли дом мечты с нашей помощью. Искусственный интеллект подбирает варианты, а эксперты сопровождают сделку.</p>
+    </div>
+</div>
+
+<footer id="contact">
+    <div class="container">
+        <div class="footer-links">
+            <a href="/">Главная</a>
+            <a href="#catalog">Каталог</a>
+            <a href="#about">О нас</a>
+            <a href="/blog">Блог</a>
+            <a href="/reviews">Отзывы</a>
+            <a href="/vacancies">Вакансии</a>
+        </div>
+        <p>🏡 ДомЭксперт — агентство с AI-поддержкой</p>
+        <p>
+            <a href="tel:+74959998877" style="color: #cddfd4; text-decoration: none;">
+                <i class="fas fa-phone-alt"></i> +7 (495) 999-88-77
+            </a> | 
+            <a href="mailto:support@dom-expert.ru" style="color: #cddfd4; text-decoration: none;">
+                <i class="fas fa-envelope"></i> support@dom-expert.ru
+            </a>
+        </p>
+        <p style="margin-top: 20px; font-size: 0.85rem;">© 2024 ДомЭксперт. Все права защищены. <a href="/privacy" style="color: #cddfd4;">Политика конфиденциальности</a></p>
+    </div>
+</footer>
+
+<!-- Кнопка чат-бота -->
+<div class="chatbot-button" id="chatbotButton">
+    <i class="fas fa-robot"></i>
+</div>
+
+<!-- Окно чата -->
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <h3><i class="fas fa-brain"></i> AI-помощник ДомЭксперт</h3>
+        <button class="close-chat" id="closeChatBtn">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="message bot-message">🏡 Здравствуйте! Я искусственный интеллект ДомЭксперт. Помогу подобрать дом, расскажу про ипотеку или запишу на просмотр. Что вас интересует?</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Напишите вопрос..." autocomplete="off">
+        <button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<script>
+    // 30 объявлений с разнообразными локациями, ценами и характеристиками
+    const housesData = [
+        { id: 1, name: "Скандинавский минимализм", location: "Москва, Строгино", price: 12400000, rooms: 3, area: 128, style: "🏡", hot: true, agent: "Анна С.", description: "Современный дом с панорамными окнами, отделка под ключ. Участок 6 соток." },
+        { id: 2, name: "Классическая усадьба", location: "Московская обл, Одинцово", price: 28700000, rooms: 5, area: 215, style: "🏰", hot: false, agent: "Игорь К.", description: "Просторная усадьба с камином и участком 12 соток. Готовая отделка." },
+        { id: 3, name: "Лофт с панорамой", location: "Москва, Рублево", price: 45800000, rooms: 4, area: 187, style: "🏢", hot: true, agent: "Елена В.", description: "Стильный лофт с умным домом и террасой. Вид на Москву-реку." },
+        { id: 4, name: "Уютный таунхаус", location: "Красногорск", price: 8900000, rooms: 2, area: 82, style: "🏘️", hot: false, agent: "Дмитрий П.", description: "Компактный таунхаус, закрытый ЖК, детская площадка." },
+        { id: 5, name: "Дом у озера", location: "Московская обл, Истра", price: 18700000, rooms: 3, area: 145, style: "🌊", hot: false, agent: "Ольга М.", description: "Дом в 50 метрах от озера, баня, беседка. Участок 8 соток." },
+        { id: 6, name: "Премиум вилла", location: "Новорижское ш", price: 78500000, rooms: 6, area: 340, style: "✨", hot: true, agent: "Максим Д.", description: "Вилла с бассейном и SPA-зоной. Охраняемый поселок." },
+        { id: 7, name: "Эко-дом в лесу", location: "Московская обл, Звенигород", price: 15600000, rooms: 3, area: 112, style: "🌲", hot: false, agent: "Наталья С.", description: "Дом из экоматериалов, рядом лес. Идеально для семьи." },
+        { id: 8, name: "Барнхаус премиум", location: "Москва, Сколково", price: 124500000, rooms: 5, area: 420, style: "🏭", hot: true, agent: "Алексей Р.", description: "Современный барнхаус, умный дом, терраса 80м²." },
+        { id: 9, name: "Дача с садом", location: "Чеховский р-н", price: 6500000, rooms: 2, area: 68, style: "🌻", hot: false, agent: "Татьяна К.", description: "Уютная дача с фруктовым садом, 10 соток." },
+        { id: 10, name: "Коттедж с бассейном", location: "Московская обл, Мытищи", price: 34500000, rooms: 4, area: 210, style: "🏊", hot: true, agent: "Сергей Н.", description: "Коттедж с крытым бассейном и сауной." },
+        { id: 11, name: "Семейное гнездо", location: "Химки", price: 21900000, rooms: 4, area: 175, style: "🏠", hot: false, agent: "Мария Л.", description: "Просторный дом для большой семьи, рядом школа и парк." },
+        { id: 12, name: "Дом с мансардой", location: "Дмитров", price: 9800000, rooms: 3, area: 105, style: "🏚️", hot: false, agent: "Владимир Б.", description: "Дом с уютной мансардой, участок 6 соток." },
+        { id: 13, name: "Вилла на Рублевке", location: "Рублево-Успенское", price: 189000000, rooms: 7, area: 580, style: "👑", hot: true, agent: "Екатерина А.", description: "Элитная вилла с охраной, теннисный корт, бассейн." },
+        { id: 14, name: "Современный дуплекс", location: "Красногорск", price: 32400000, rooms: 4, area: 198, style: "🏘️", hot: false, agent: "Андрей В.", description: "Дуплекс с террасой и видом на парк." },
+        { id: 15, name: "Усадьба с историей", location: "Московская обл, Истра", price: 42500000, rooms: 6, area: 310, style: "🏛️", hot: false, agent: "Олег С.", description: "Восстановленная усадьба XIX века, участок 25 соток." },
+        { id: 16, name: "Минимализм + сад", location: "Одинцово", price: 17800000, rooms: 3, area: 134, style: "🌿", hot: true, agent: "Ирина Д.", description: "Стильный минимализм, ландшафтный дизайн, 9 соток." },
+        { id: 17, name: "Дом у реки", location: "Московская обл, Руза", price: 14200000, rooms: 3, area: 118, style: "🏞️", hot: false, agent: "Константин М.", description: "Выход к реке, причал, баня. Отличная рыбалка." },
+        { id: 18, name: "Коттеджный поселок", location: "Домодедово", price: 11300000, rooms: 3, area: 96, style: "🏘️", hot: false, agent: "Алена П.", description: "Уютный коттедж в охраняемом поселке." },
+        { id: 19, name: "Аренда с выкупом", location: "Москва, Некрасовка", price: 18900000, rooms: 4, area: 142, style: "🏡", hot: false, agent: "Павел К.", description: "Возможна аренда с последующим выкупом." },
+        { id: 20, name: "Дом для инвестора", location: "Москва, Молжаниновский", price: 8700000, rooms: 2, area: 74, style: "💼", hot: true, agent: "Денис Ф.", description: "Высокая ликвидность, рядом транспортная развязка." },
+        { id: 21, name: "Скандинавский стиль", location: "Московская обл, Солнечногорск", price: 16400000, rooms: 3, area: 121, style: "🏡", hot: false, agent: "Валентина Г.", description: "Дом в скандинавском стиле, качественная отделка." },
+        { id: 22, name: "Престижный поселок", location: "Москва, Запад", price: 96500000, rooms: 5, area: 385, style: "🏰", hot: true, agent: "Глеб Т.", description: "Дом в элитном поселке, спортивный комплекс." },
+        { id: 23, name: "Таунхаус у метро", location: "Москва, Митино", price: 15700000, rooms: 3, area: 98, style: "🏘️", hot: false, agent: "Светлана Р.", description: "5 минут до метро, закрытая территория." },
+        { id: 24, name: "Дом с зимним садом", location: "Московская обл, Наро-Фоминск", price: 21200000, rooms: 4, area: 189, style: "🌴", hot: false, agent: "Виктор Л.", description: "Зимний сад, система климат-контроль." },
+        { id: 25, name: "Эко-вилла", location: "Московская обл, Серпухов", price: 28700000, rooms: 4, area: 205, style: "🍃", hot: true, agent: "Евгения О.", description: "Экологичные материалы, солнечные батареи." },
+        { id: 26, name: "Дом для двоих", location: "Москва, Тропарево", price: 19600000, rooms: 2, area: 88, style: "💕", hot: false, agent: "Александра Н.", description: "Компактный уютный дом, идеально для пары." },
+        { id: 27, name: "Коттедж + гараж", location: "Московская обл, Лобня", price: 13500000, rooms: 3, area: 109, style: "🚗", hot: false, agent: "Роман З.", description: "Дом с теплым гаражом на 2 авто." },
+        { id: 28, name: "Дом у леса", location: "Московская обл, Чехов", price: 11900000, rooms: 3, area: 102, style: "🌳", hot: false, agent: "Надежда М.", description: "Рядом лесной массив, экологически чистый район." },
+        { id: 29, name: "Премиум пентхаус", location: "Москва, ЦАО", price: 156000000, rooms: 5, area: 420, style: "🏙️", hot: true, agent: "Марат И.", description: "Пентхаус с террасой 150м², вид на город." },
+        { id: 30, name: "Семейный особняк", location: "Московская обл, Подольск", price: 42300000, rooms: 6, area: 297, style: "🏠", hot: false, agent: "Людмила С.", description: "Просторный особняк с домашним кинотеатром." }
+    ];
+
+    function formatPrice(price) {
+        if (price >= 10000000) return (price / 1000000).toFixed(1) + " млн ₽";
+        return price.toLocaleString('ru-RU') + " ₽";
+    }
+
+    function renderHouses(filterLocation = "Москва", filterPrice = "any", filterRooms = "any") {
+        let filtered = housesData.filter(h => h.location.toLowerCase().includes(filterLocation.toLowerCase()));
+        if (filterPrice !== "any") filtered = filtered.filter(h => h.price <= parseInt(filterPrice) * 1000000);
+        if (filterRooms !== "any") filtered = filtered.filter(h => h.rooms >= parseInt(filterRooms));
+        const container = document.getElementById('housesContainer');
+        const countSpan = document.getElementById('houseCount');
+        if (!container) return;
+        
+        if (countSpan) {
+            countSpan.textContent = filtered.length + " из " + housesData.length + " объектов";
+        }
+        
+        if (filtered.length === 0) { 
+            container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px;">🏡 Домов не найдено. Попробуйте изменить параметры поиска.</div>'; 
+            return; 
+        }
+        
+        container.innerHTML = filtered.map(house => `
+            <div class="house-card" onclick="showHouseDetails(${house.id})">
+                <div class="card-svg">
+                    ${house.hot ? '<div class="badge-hot">🔥 Горячее предложение</div>' : ''}
+                    ${house.price > 50000000 ? '<div class="badge-new">⭐ Премиум</div>' : ''}
+                    <div style="font-size:70px;">${house.style}</div>
+                </div>
+                <div class="card-content">
+                    <div class="price">${formatPrice(house.price)}</div>
+                    <div class="address"><i class="fas fa-map-marker-alt"></i> ${house.location}</div>
+                    <div class="details"><span><i class="fas fa-bed"></i> ${house.rooms} комн.</span><span><i class="fas fa-ruler-combined"></i> ${house.area} м²</span></div>
+                    <div class="card-footer"><span class="agent"><i class="fas fa-user"></i> Агент: ${house.agent}</span><span style="color:#1f8a4c;">Подробнее →</span></div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function showHouseDetails(id) {
+        const house = housesData.find(h => h.id === id);
+        if (house) {
+            alert(`🏠 ${house.name}\n📍 ${house.location}\n💰 ${formatPrice(house.price)}\n🛏️ ${house.rooms} комнат\n📐 ${house.area} м²\n\n${house.description}\n\n👤 Агент: ${house.agent}\n📞 Запишитесь на просмотр через чат-бота!`);
+        }
+    }
+
+    // ========== ИИ-БОТ С ИНТЕЛЛЕКТУАЛЬНЫМИ ОТВЕТАМИ ==========
+    const aiKnowledge = {
+        greetings: ["привет", "здравствуй", "добрый день", "хай", "hi", "hello", "здрасте"],
+        mortgage: ["ипотека", "кредит", "ставка", "процент", "первоначальный взнос", "ипотеку"],
+        houses: ["какие дома", "есть ли дома", "показать дома", "каталог", "подобрать дом", "объявления", "варианты"],
+        price: ["цена", "стоимость", "сколько стоит", "бюджет", "дорого", "дешево"],
+        viewing: ["просмотр", "посмотреть", "записаться", "приехать", "показ", "осмотр"],
+        documents: ["документы", "сделка", "оформить", "юрист", "безопасно", "регистрация"],
+        location: ["район", "локация", "где находится", "метро", "адрес", "какой район"],
+        support: ["помощь", "поддержка", "оператор", "человек", "позвонить"],
+        rooms_count: ["комнат", "комнаты", "спальни", "2 комнаты", "3 комнаты", "4 комнаты", "5 комнат"]
+    };
+    
+    function getAIResponse(userMessage) {
+        const msg = userMessage.toLowerCase();
+        
+        if (aiKnowledge.greetings.some(w => msg.includes(w))) {
+            return "👋 Здравствуйте! Я AI-помощник ДомЭксперт. Я могу:\n• Подобрать дом по параметрам\n• Рассказать про ипотеку\n• Записать на просмотр\n• Ответить на вопросы о сделке\nЧто вас интересует?";
+        }
+        
+        if (aiKnowledge.mortgage.some(w => msg.includes(w))) {
+            return "🏦 Ипотечные программы:\n• Ставка от 4.5% годовых\n• Первоначальный взнос от 15%\n• Срок до 30 лет\n• Господдержка семей с детьми\n• Одобрение за 1 день\n• Военная ипотека\n\nХотите рассчитать ежемесячный платёж? Напишите сумму кредита и срок!";
+        }
+        
+        if (aiKnowledge.houses.some(w => msg.includes(w))) {
+            return "🏘️ В нашем каталоге 30 домов в Московской области и Москве. Есть варианты на любой бюджет:\n• Эконом: до 15 млн ₽ — 6 вариантов\n• Средний: 15-30 млн ₽ — 8 вариантов\n• Бизнес: 30-60 млн ₽ — 7 вариантов\n• Премиум: от 60 млн ₽ — 9 вариантов\n\nУточните бюджет и количество комнат — я подберу лучшие варианты!";
+        }
+        
+        if (aiKnowledge.price.some(w => msg.includes(w))) {
+            return "💰 Диапазон цен: от 6.5 млн ₽ (уютная дача) до 189 млн ₽ (элитная вилла на Рублевке).\n\nСамые популярные:\n• до 15 млн ₽ — 6 вариантов\n• 15-30 млн ₽ — 8 вариантов\n• 30-60 млн ₽ — 7 вариантов\n• 60-100 млн ₽ — 5 вариантов\n• выше 100 млн — 4 варианта\n\nКакой бюджет вас интересует?";
+        }
+        
+        if (aiKnowledge.viewing.some(w => msg.includes(w))) {
+            return "📅 Отлично! Я могу записать вас на просмотр. Для этого напишите:\n1️⃣ Ваше имя\n2️⃣ Номер телефона\n3️⃣ Какой дом интересует (название или локацию)\n\nЯ передам заявку агенту, и он свяжется с вами в течение 15 минут!";
+        }
+        
+        if (aiKnowledge.documents.some(w => msg.includes(w))) {
+            return "📄 Юридическое сопровождение:\n• Полная проверка документов\n• Эскроу-счета для безопасности\n• Помощь в регистрации права собственности\n• Бесплатная консультация юриста\n• Сделка проходит под защитой государства!";
+        }
+        
+        if (aiKnowledge.location.some(w => msg.includes(w))) {
+            return "📍 Дома в лучших районах:\n• Москва (Строгино, Рублево, Митино, Тропарево, ЦАО)\n• Одинцово, Красногорск, Химки\n• Истра, Звенигород, Руза\n• Новорижское и Рублево-Успенское шоссе\n• Дмитров, Чехов, Подольск\n\nЕсть дома у озера, в лесу и с панорамным видом. Какой район вам ближе?";
+        }
+        
+        if (aiKnowledge.support.some(w => msg.includes(w))) {
+            return "🎧 Если нужна помощь оператора, напишите «Позвонить оператору» или оставьте свой номер — мы свяжемся с вами в течение 5 минут. Также вы можете позвонить по телефону +7 (495) 999-88-77";
+        }
+        
+        if (msg.match(/\+\d|\d{10,}/) || (msg.includes("запишите") && msg.match(/\d/))) {
+            return "✅ Заявка на просмотр принята! Наш агент свяжется с вами в ближайшее время. Если хотите уточнить детали, просто напишите. Спасибо, что выбрали ДомЭксперт! 🏡";
+        }
+        
+        if (msg.includes("скидка") || msg.includes("акция")) {
+            return "🎉 Специальные предложения:\n• Скидка 5% при покупке до конца месяца\n• Бесплатная юридическая проверка\n• Подарок — дизайн-проект интерьера!\nУточните, какой дом вас интересует?";
+        }
+        
+        return "🤖 Я AI-ассистент. Могу помочь с:\n• Поиском дома по параметрам\n• Расчётом ипотеки\n• Записью на просмотр\n• Консультацией по документам\n\nНапишите подробнее, что вас интересует (бюджет, район, количество комнат), и я подберу варианты из 30 доступных домов!";
+    }
+    
+    // Чат-бот логика
+    const chatWindow = document.getElementById('chatWindow');
+    const chatbotButton = document.getElementById('chatbotButton');
+    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendChatBtn');
+    
+    function openChat() { chatWindow.style.display = 'flex'; }
+    function closeChat() { chatWindow.style.display = 'none'; }
+    
+    chatbotButton.addEventListener('click', openChat);
+    closeChatBtn.addEventListener('click', closeChat);
+    
+    function addMessage(text, isUser) {
+        const div = document.createElement('div');
+        div.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function showTyping() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'typing-indicator';
+        typingDiv.id = 'typingIndicator';
+        typingDiv.textContent = '✍️ AI печатает...';
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function removeTyping() {
+        const typing = document.getElementById('typingIndicator');
+        if (typing) typing.remove();
+    }
+    
+    async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        addMessage(message, true);
+        chatInput.value = '';
+        
+        showTyping();
+        
+        setTimeout(() => {
+            removeTyping();
+            const response = getAIResponse(message);
+            addMessage(response, false);
+        }, 500 + Math.random() * 400);
+    }
+    
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+    
+    document.getElementById('supportBtn')?.addEventListener('click', () => { openChat(); });
+    document.getElementById('openChatBtn')?.addEventListener('click', () => { openChat(); });
+    
+    // Фильтры
+    function updateFilters() {
+        const loc = document.getElementById('locationFilter')?.value || "Москва";
+        const price = document.getElementById('priceFilter')?.value || "any";
+        const rooms = document.getElementById('roomsFilter')?.value || "any";
+        renderHouses(loc, price, rooms);
+    }
+    document.getElementById('applyFilterBtn')?.addEventListener('click', updateFilters);
+    document.getElementById('locationFilter')?.addEventListener('keypress', (e) => { if(e.key === 'Enter') updateFilters(); });
+    document.getElementById('heroCatalogBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    renderHouses("Москва", "any", "any");
+    
+    // Навигация
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if(href && href !== '/' && href !== '#') {
+                const target = document.querySelector(href);
+                if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            }
+        });
+    });
+    
+    window.showHouseDetails = showHouseDetails;
+</script>
+</body>
+</html>
