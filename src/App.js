@@ -130,7 +130,7 @@ const App = () => {
             <div className="flex items-center gap-3 cursor-pointer">
               <div className="bg-emerald-800 p-2 rounded-lg shadow-lg shadow-emerald-200">
                 <Home className="text-white" size={28} />
-              </div}
+              </div>
               <span className="text-2xl font-serif font-black tracking-tight text-gray-900 uppercase">Dom<span className="text-emerald-700">Expert</span> <span className="text-sm font-light text-emerald-600 ml-1 italic">Luxe</span></span>
             </div>
 
