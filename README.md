@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# 🏠 DomExpert — Элитная недвижимость в Москве и области
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**DomExpert** — это современный веб-интерфейс для агентства по продаже элитных загородных домов. Сайт спроектирован как высококонверсионный лендинг, ориентированный на премиум-сегмент рынка недвижимости.
 
-## Available Scripts
+![Скриншот сайта](https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200)
 
-In the project directory, you can run:
+## ✨ Основные возможности
 
-### `npm start`
+- 🚀 **Современный Landing Page**: Полностью адаптивный дизайн, который идеально работает на смартфонах, планшетах и ПК.
+- 🏘️ **Интерактивный каталог**: Карточки объектов с детальной информацией: цена, площадь, количество спален и локация.
+- 🔍 **Система фильтрации**: Удобный поиск по районам и площади дома.
+- 📝 **Форма захвата лидов**: Интегрированная форма заявки для записи на просмотр или консультацию.
+- 🛡️ **Премиум-дизайн**: Использование Glassmorphism эффектов, современной типографики и продуманного UX.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠 Технологический стек
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Проект построен на базе самых актуальных инструментов фронтенд-разработки:
 
-### `npm test`
+- **React** — библиотека для создания интерфейса.
+- **Tailwind CSS** — utility-first CSS фреймворк для быстрой и точной стилизации.
+- **Lucide React** — набор легких и красивых иконок.
+- **JavaScript (ES6+)** — современный стандарт языка.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Быстрый старт
 
-### `npm run build`
+Чтобы запустить проект локально, выполните следующие шаги:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. Клонируйте репозиторий
+```bash
+git clone https://github.com/fhfh567487/dom-expert.git
+cd dom-expert
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Установите зависимости
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Запустите приложение
+```bash
+npm start
+```
+После этого сайт откроется в вашем браузере по адресу `http://localhost:3000`.
 
-### `npm run eject`
+## 📦 Сборка для продакшена
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Для создания оптимизированной версии сайта для сервера выполните:
+```bash
+npm run build
+```
+Готовые файлы будут находиться в папке `/build`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+© 2026 **DomExpert** — Эксперты в мире загородной недвижимости.
